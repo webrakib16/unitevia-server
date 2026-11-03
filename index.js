@@ -41,7 +41,7 @@ app.get('/upcoming-events', async(req,res) => {
   res.send(result);
 })
 
-// Get event by ID route
+// Get event by ID route.
 app.get('/event/:id',async(req,res) => {
   const {id} = req.params;
   const result = await eventCollection.findOne({_id: new ObjectId(id)});
