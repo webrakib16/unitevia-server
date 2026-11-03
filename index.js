@@ -69,7 +69,7 @@ app.delete('/event/:id',async(req,res) => {
 })
 
 
-// Get root route.
+// Health check route
 app.get("/",(req,res) => {
   res.send({message: 'Server running fine'})
 })
