@@ -50,7 +50,7 @@ app.get('/event/:id',async(req,res) => {
   
 })
 
-// Event update route.
+// Update event route.
 app.patch('/event/:id',async(req,res) => {
   const {id} = req.params;
   const updatedData = req.body;
