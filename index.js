@@ -35,7 +35,7 @@ app.post('/data-event',async(req,res) => {
 
 });
 
-// Get all events route
+// Get all events route.
 app.get('/upcoming-events', async(req,res) => {
   const result = await eventCollection.find({}).toArray();
   res.send(result);
