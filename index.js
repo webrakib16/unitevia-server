@@ -93,7 +93,7 @@ app.patch('/event/:id', verifyToken , async(req,res) => {
 })
 
 // Event delete route.
-app.delete('/event/:id',async(req,res) => {
+app.delete('/event/:id', verifyToken ,async(req,res) => {
   const {id} = req.params;
   const result = await eventCollection.deleteOne({_id: new ObjectId(id)});
   res.json(result);
