@@ -2,7 +2,7 @@ import express from "express";
 import { MongoClient, ObjectId } from 'mongodb';
 import 'dotenv/config'
 import cors from "cors";
-
+import { createRemoteJWKSet, jwtVerify } from 'jose-cjs'
 const app = express();
 app.use(cors());
 app.use(express.json());
@@ -25,6 +25,8 @@ const mongoClient = await connectToMongoDB();
 const db = mongoClient.db("unitevia");
 const eventCollection = db.collection("data-events");
 
+
+// 
 const verifyToken = async(req,res,next) => {
   const authHeader = req.headers.authorization;
   if(!authHeader) {
@@ -46,11 +48,7 @@ const verifyToken = async(req,res,next) => {
   catch(error) {
     return res.status(500).send({msg: 'Server error !'})
   }
- 
 
-  
-
-  
 }
 
 // Create new event route
@@ -82,7 +80,7 @@ app.get('/event/:id',
 })
 
 // Update event route.
-app.patch('/event/:id', verifyToken , async(req,res) => {
+app.patch('/event/:id',  async(req,res) => {
   const {id} = req.params;
   const updatedData = req.body;
   const result = await eventCollection.updateOne(
