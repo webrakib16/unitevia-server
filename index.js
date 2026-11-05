@@ -39,7 +39,9 @@ const verifyToken = async (req, res, next) => {
     return res.status(401).send({ msg: "Unauthorized" });
   }
 
-  const JWKS = createRemoteJWKSet(new URL('http://localhost:3000/api/auth/jwks'));
+  // env Url
+
+  const JWKS = createRemoteJWKSet(new URL(`${process.env.CLIENT_URL}/api/auth/jwks`));
 
   try {
     const { payload } = await jwtVerify(token, JWKS);
@@ -69,7 +71,7 @@ app.get('/upcoming-events', async (req, res) => {
     let query = eventCollection.find({}).sort({ date: 1 });
 
     if (!isNaN(limit) && limit > 0) {
-      query = query.limit(limit); // 👉 MongoDB-র .limit() অপারেটর
+      query = query.limit(limit); // 
     }
 
     const result = await query.toArray();
@@ -125,3 +127,5 @@ app.get("/", (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
+export default app
